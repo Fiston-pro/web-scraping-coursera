@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="centered">
+    <h1>Choose a Coursera category</h1>
+<div class="categories">
+    <form action="{{ url_for('index')}}" method="post">
+        <input type="submit" class="button" value='data-science' name="categoryClicked">
+        <input type="submit" class="button" value='business' name="categoryClicked">
+        <input type="submit" class="button" value='computer-science' name="categoryClicked">
+        <input type="submit" class="button" value='information-technology' name="categoryClicked">
+        <input type="submit" class="button" value='personal-development' name="categoryClicked">
+        <input type="submit" class="button" value='language-learning' name="categoryClicked">
+        <input type="submit" class="button" value='health' name="categoryClicked">
+        <input type="submit" class="button" value='social-sciences' name="categoryClicked">
+        <input type="submit" class="button" value='arts-and-humanities' name="categoryClicked">
+        <input type="submit" class="button" value='math-and-logic' name="categoryClicked">
+        <input type="submit" class="button" value='physical-science-and-engineering' name="categoryClicked">
+    </form>
+</div>
+</div>
+<script>
+function categoryClicked(category)
+{
+    console.log('clicked '+category)
+}
+</script>
+{% endblock %}

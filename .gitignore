@@ -1,2 +1,5 @@
 /env
 .DS_Store
+test.html
+draft.html
+__pycache__
