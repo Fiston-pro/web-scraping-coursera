@@ -1,5 +1,4 @@
-import os
-from pydoc import text
+
 from bs4 import BeautifulSoup
 import requests
 import csv
