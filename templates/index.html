@@ -1,28 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="centered">
+<div id="loading">
+    <span class="loader"></span>
+</div>
+<div id="centered">
     <h1>Choose a Coursera category</h1>
-<div class="categories">
-    <form action="{{ url_for('index')}}" method="post">
-        <input type="submit" class="button" value='data-science' name="categoryClicked">
-        <input type="submit" class="button" value='business' name="categoryClicked">
-        <input type="submit" class="button" value='computer-science' name="categoryClicked">
-        <input type="submit" class="button" value='information-technology' name="categoryClicked">
-        <input type="submit" class="button" value='personal-development' name="categoryClicked">
-        <input type="submit" class="button" value='language-learning' name="categoryClicked">
-        <input type="submit" class="button" value='health' name="categoryClicked">
-        <input type="submit" class="button" value='social-sciences' name="categoryClicked">
-        <input type="submit" class="button" value='arts-and-humanities' name="categoryClicked">
-        <input type="submit" class="button" value='math-and-logic' name="categoryClicked">
-        <input type="submit" class="button" value='physical-science-and-engineering' name="categoryClicked">
-    </form>
+    <div class="categories">
+        <form action="{{ url_for('csvlink')}}" method="post">
+            <input type="submit" class="button" value='data-science' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='business' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='computer-science' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='information-technology' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='personal-development' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='language-learning' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='health' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='social-sciences' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='arts-and-humanities' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='math-and-logic' name="categoryClicked" onclick="loading();">
+            <input type="submit" class="button" value='physical-science-and-engineering' name="categoryClicked" onclick="loading();">
+        </form>
+    </div>
 </div>
-</div>
-<script>
-function categoryClicked(category)
-{
-    console.log('clicked '+category)
-}
-</script>
+
+<script type="text/javascript">// <![CDATA[
+    function loading(){
+        var x = document.getElementById("loading");
+        var y = document.getElementById("centered")
+        if (x.style.display == "none") {
+            x.style.display = "block";
+            y.style.display = "none"
+            console.log('clicked category')
+
+        }  
+    }
+// ]]></script>
+
 {% endblock %}

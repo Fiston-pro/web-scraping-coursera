@@ -1,3 +1,4 @@
+import os
 from pydoc import text
 from bs4 import BeautifulSoup
 import requests
@@ -17,7 +18,7 @@ def runscript(categoryName):
     fake = Faker()
     fileName = fake.file_name(extension= categoryName)
 
-    with open(f"{fileName}.csv", "w", newline="") as csvfile:
+    with open(f"./static/csv/{fileName}.csv", "w", newline="") as csvfile:
         fieldnames = ["Course Name", "Course Provider", "Course Description", "# of Students enrolled", "# of Ratings"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -38,6 +39,10 @@ def runscript(categoryName):
             # start writing to file
             writer.writerow({"Course Name": courseName.text,"Course Provider": courseProvider.text,"Course Description":courseDescription.text,"# of Students enrolled":nbrOfStudents.text,"# of Ratings":nbrOfRatings.text})
 
-
     # upload the csv file and give the link to the file
+    rootDir = os.path.abspath(os.path.dirname(__file__))
+    filePath = os.path.join(rootDir, f"static/csc/{fileName}.csv")
+    return filePath
+
+
 
