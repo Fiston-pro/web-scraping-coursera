@@ -1,5 +1,5 @@
 from unicodedata import category
-from flask import Flask, render_template, request,redirect
+from flask import Flask, render_template, request
 from script import runscript
 app = Flask(__name__)
 
@@ -16,7 +16,9 @@ def loading():
 def csvlink():
     if request.method == 'POST':
         categoryName = request.form.get('categoryClicked')
-        filePath = runscript(categoryName)
-        print(filePath)
+        fileName = runscript(categoryName)
+        print(fileName)
 
-    return render_template('csvlink.html', filePath=filePath)
+        
+
+    return render_template('csvlink.html', filePath=fileName)

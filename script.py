@@ -5,6 +5,10 @@ import requests
 import csv
 from faker import Faker
 
+
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+
 def runscript(categoryName):
     # get the data from coursera
     defaultUrl = "https://www.coursera.org"
@@ -36,13 +40,35 @@ def runscript(categoryName):
             nbrOfRatings = courseSoup.find("span",{'data-test':"ratings-count-without-asterisks"})
             if courseName == None:
                 courseName = courseSoup.find("h1",{'class':"banner-title m-b-0"})
+
+            # to make sure every variable contains something or at least none to avoid errors
+            if courseName != None:
+                courseName = courseName.text
+            if courseProvider != None:
+                courseProvider = courseProvider.text
+            if courseDescription != None:
+                courseDescription = courseDescription.text
+            if nbrOfStudents != None:
+                nbrOfStudents = nbrOfStudents.text
+            if nbrOfRatings != None:
+                nbrOfRatings = nbrOfRatings.text
             # start writing to file
-            writer.writerow({"Course Name": courseName.text,"Course Provider": courseProvider.text,"Course Description":courseDescription.text,"# of Students enrolled":nbrOfStudents.text,"# of Ratings":nbrOfRatings.text})
+            writer.writerow({"Course Name": courseName,"Course Provider": courseProvider,"Course Description":courseDescription,"# of Students enrolled":nbrOfStudents,"# of Ratings":nbrOfRatings})
 
-    # upload the csv file and give the link to the file
-    rootDir = os.path.abspath(os.path.dirname(__file__))
-    filePath = os.path.join(rootDir, f"static/csc/{fileName}.csv")
-    return filePath
+    # upload the csv file to google drive 
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()
+    drive = GoogleDrive(gauth)
+    folderId = "1xQjBBteb3VxUtSbl3KmGc9l44_DufUxP"
+    filepath = f'./static/csv/{fileName}.csv'
 
+    gfile = drive.CreateFile({'parents': [{'id': folderId}],'title': fileName})
+    gfile.SetContentFile(filepath)
+    gfile.Upload()
 
+    # make a link to the file
+    file_list = drive.ListFile({'q': f'title = "{fileName}"'}).GetList()
+    fileId = file_list[0]['id']
+
+    return f'https://drive.google.com/file/d/{fileId}/view'
 
