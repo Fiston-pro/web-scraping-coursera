@@ -21,7 +21,7 @@ def runscript(categoryName):
     fake = Faker()
     fileName = fake.file_name(extension= categoryName)
 
-    with open(f"./static/csv/{fileName}.csv", "w", newline="") as csvfile:
+    with open(f"{fileName}.csv", "w", newline="") as csvfile:
         fieldnames = ["Course Name", "Course Provider", "Course Description", "# of Students enrolled", "# of Ratings"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -59,7 +59,7 @@ def runscript(categoryName):
     gauth.LocalWebserverAuth()
     drive = GoogleDrive(gauth)
     folderId = "1xQjBBteb3VxUtSbl3KmGc9l44_DufUxP"
-    filepath = f'./static/csv/{fileName}.csv'
+    filepath = f'{fileName}.csv'
 
     gfile = drive.CreateFile({'parents': [{'id': folderId}],'title': fileName})
     gfile.SetContentFile(filepath)
