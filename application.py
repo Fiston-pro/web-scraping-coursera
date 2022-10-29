@@ -1,18 +1,19 @@
 from unicodedata import category
 from flask import Flask, render_template, request
 from script import runscript
-app = Flask(__name__)
+
+application = Flask(__name__)
 
 
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/loading')
+@application.route('/loading')
 def loading():
     return render_template('loading.html')
 
-@app.route('/csvlink', methods=['POST'])
+@application.route('/csvlink', methods=['POST'])
 def csvlink():
     if request.method == 'POST':
         categoryName = request.form.get('categoryClicked')
@@ -22,3 +23,6 @@ def csvlink():
         
 
     return render_template('csvlink.html', filePath=fileName)
+
+if __name__ == "__main__":
+  application .run()
