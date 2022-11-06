@@ -12,3 +12,5 @@ This is the project where you choose any topic you want to learn on coursera and
 2. Activate the virtual environment ```source venv/bin/activate```
 3. Install the dependencies ```pip install -r requirements.txt```
 4. Start your jupyter notebook ```python wsgi.py```
+
+Have Fun ✌🏿
